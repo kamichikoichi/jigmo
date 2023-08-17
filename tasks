@@ -1,0 +1,85 @@
+#!/bin/bash
+
+DOC="documents"
+DIR="work"
+GLYPH="$DIR/glyph"
+FONT="$DIR/font"
+BUILD="build"
+ASCII="ascii.txt"
+TEMP="temp.txt"
+ERR="stderr.txt"
+
+URL1="https://www.unicode.org/Public/15.1.0/ucd/UnicodeData.txt"
+URL2="https://unicode.org/ivd/data/2022-09-13/IVD_Sequences.txt"
+
+DATA1="UnicodeData.txt"
+DATA2="IVD_Sequences.txt"
+
+KEYWORDS="keywords.txt"
+
+OUT3="use.txt"
+OUT4="notuse.txt"
+OUT5="codepoint.txt"
+
+mkdir -p $DIR
+mkdir -p $BUILD
+
+rm -f $DIR/strerr.txt
+echo "01:unicode.org からデータの取得"
+if [ ! -e $DIR/$DATA1 ]; then
+  wget -nv $URL1 -O $DIR/$DATA1 2>> $DIR/$ERR
+fi
+if [ ! -e $DIR/$DATA2 ]; then
+  wget -nv $URL2 -O $DIR/$DATA2 2>> $DIR/$ERR
+fi
+
+echo "02:収録コードポイントの生成"
+rm -f $DIR/$TEMP
+cat $KEYWORDS | while read LINE
+do
+  grep "$LINE" $DIR/$DATA1 | grep -v FILLER | grep -v SPACE >> $DIR/$TEMP
+done
+sort $DIR/$TEMP | uniq > $DIR/$OUT3
+rm $DIR/$TEMP
+
+echo "03:非収録コードポイントの生成"
+grep -F -v $DIR/$DATA1 -f $DIR/$OUT3 > $DIR/$OUT4
+
+echo "04:コードポイントリスト(UCS)の生成"
+rm -f $DIR/$OUT5
+python3 makecodepoint.py $DIR/$OUT3 $DIR/$OUT5
+
+echo "05:コードポイントリスト(IVS)の生成"
+grep -v -e "^#" $DIR/$DATA2 | awk -F'[; ]' '{printf "u%s-u%s\n",tolower($1),tolower($2)}' > $DIR/$TEMP
+sort $DIR/$TEMP | uniq >> $DIR/$OUT5
+rm $DIR/$TEMP
+
+echo "06:コードポイントリストにASCIIを追加"
+cat $ASCII >> $DIR/$OUT5
+
+echo "07:グリフSVGファイルの取得"
+python3 getglyphs.py $GLYPH $DIR/$OUT5
+
+echo "08:グリフSVGファイルの確認"
+files=`find work/glyph -name *.svg | wc -l`
+lines=`cat work/codepoint.txt | wc -l`
+if [ $files -ne $lines ]; then
+    echo "グリフSVGファイル数とコードポイント数が一致しません。終了します。"
+    exit
+fi
+
+echo "09:フォント生成 #1"
+perl makefont.pl
+
+echo "10:フォント生成 #2"
+perl makefont.pl 2
+
+echo "11:フォント生成 #3"
+perl makefont.pl 3
+
+echo "12:グリフリストの生成"
+perl glyphlist.pl > $BUILD/glyphlist.html
+
+echo "13:ドキュメントと生成フォントの配置"
+cp $DOC/* $BUILD/
+cp $DIR/font/*.ttf $BUILD/

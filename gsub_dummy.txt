@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ttFont sfntVersion="\x00\x01\x00\x00" ttLibVersion="2.2">
+
+  <GSUB>
+    <Version value="1.0"/>
+    <ScriptList>
+      <!-- ScriptCount=4 -->
+      <ScriptRecord index="0">
+        <ScriptTag value="DFLT"/>
+        <Script>
+          <DefaultLangSys>
+            <ReqFeatureIndex value="65535"/>
+            <!-- FeatureCount=1 -->
+            <FeatureIndex index="0" value="0"/>
+          </DefaultLangSys>
+          <!-- LangSysCount=0 -->
+        </Script>
+      </ScriptRecord>
+      <ScriptRecord index="1">
+        <ScriptTag value="hang"/>
+        <Script>
+          <DefaultLangSys>
+            <ReqFeatureIndex value="65535"/>
+            <!-- FeatureCount=1 -->
+            <FeatureIndex index="0" value="0"/>
+          </DefaultLangSys>
+          <!-- LangSysCount=0 -->
+        </Script>
+      </ScriptRecord>
+      <ScriptRecord index="2">
+        <ScriptTag value="hani"/>
+        <Script>
+          <DefaultLangSys>
+            <ReqFeatureIndex value="65535"/>
+            <!-- FeatureCount=1 -->
+            <FeatureIndex index="0" value="0"/>
+          </DefaultLangSys>
+          <!-- LangSysCount=0 -->
+        </Script>
+      </ScriptRecord>
+      <ScriptRecord index="3">
+        <ScriptTag value="kana"/>
+        <Script>
+          <DefaultLangSys>
+            <ReqFeatureIndex value="65535"/>
+            <!-- FeatureCount=1 -->
+            <FeatureIndex index="0" value="0"/>
+          </DefaultLangSys>
+          <!-- LangSysCount=0 -->
+        </Script>
+      </ScriptRecord>
+    </ScriptList>
+    <FeatureList>
+      <!-- FeatureCount=1 -->
+      <FeatureRecord index="0">
+        <FeatureTag value="aalt"/>
+        <Feature>
+          <!-- LookupCount=1 -->
+          <LookupListIndex index="0" value="0"/>
+        </Feature>
+      </FeatureRecord>
+    </FeatureList>
+    <LookupList>
+      <!-- LookupCount=1 -->
+      <Lookup index="0">
+        <LookupType value="1"/>
+        <LookupFlag value="0"/>
+        <!-- SubTableCount=1 -->
+        <SingleSubst index="0" Format="1">
+          <Substitution in="uni4E00" out="uni4E00"/>
+        </SingleSubst>
+      </Lookup>
+    </LookupList>
+  </GSUB>
+
+</ttFont>
