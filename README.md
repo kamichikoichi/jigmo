@@ -1,3 +1,3 @@
-# Jigmo
+# jigmo
 
-Website: https://kamichikoichi.github.io/Jigmo/
+Website: https://kamichikoichi.github.io/jigmo/
