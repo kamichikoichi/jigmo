@@ -14,9 +14,9 @@ if($ARGV[0] eq "2"){
   $fontname = "Jigmo";
 }
 
-$FONTFORGE = "/usr/bin/fontforge";
-$PERL = "/usr/bin/perl";
-$TTX = "/usr/bin/ttx";
+$FONTFORGE = "fontforge";
+$PERL = "perl";
+$TTX = "ttx";
 
 $WORK_DIR = "work";
 $GLYPH_DIR = "$WORK_DIR/glyph";
