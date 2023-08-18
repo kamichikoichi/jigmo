@@ -9,7 +9,15 @@ Website: https://kamichikoichi.github.io/jigmo/
 　WSL(Windows Subsystem for Linux) を含むLinux環境で動かすことを想定しています。以下のコマンドで各パッケージを用意してください。
 
 ```
-sudo apt install fontforge-nox fonttools git
+sudo apt install fontforge-nox fonttools wget git
+pip3 install requests
+```
+
+　macOSでbrewをお使いの場合は以下に読み替えてください。
+
+```
+brew install fontforge fonttools wget git
+sudo pip3 install requests
 ```
 
 　ツール一式をGitHubから取得します。
