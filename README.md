@@ -13,7 +13,7 @@ sudo apt install fontforge-nox fonttools wget git
 pip3 install requests
 ```
 
-　macOSでbrewをお使いの場合は以下に読み替えてください（現在macOS brewでインストールされるfontforgeで生成されたフォントには不具合が生じます）。
+　macOSでbrewをお使いの場合は以下に読み替えてください。
 
 ```
 brew install fontforge fonttools wget git
