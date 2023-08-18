@@ -111,7 +111,7 @@ foreach(sort(keys(%glyphlist))){
   print $fh qq|Print(0$_)\n|;
   print $fh qq|Select(0$_)\n|;
   print $fh qq|Import("$dir/$glyphlist{$_}.svg")\n|;
-  print $fh qq|Simplify()\n|;
+#  print $fh qq|Simplify()\n|;
   print $fh qq|Scale(105,105,512,307)\n|;
   if(index($nsgh.$nsgf, "\[\[$name\]\]") != -1){
     print $fh qq|SetWidth(0)\n|;
@@ -155,7 +155,7 @@ if(scalar(keys(%ivslist)) > 0){
       print $fh qq|Print($cp)\n|;
       print $fh qq|Select($cp)\n|;
       print $fh qq|Import("$dir/$ivslist{$ucswithivs}.svg")\n|;
-      print $fh qq|Simplify()\n|;
+#      print $fh qq|Simplify()\n|;
       print $fh qq|Scale(105,105,512,307)\n|;
       print $fh qq|SetWidth(1024)\n|;
       print $fh qq|Move(0, $baseline)\n|;
@@ -205,7 +205,10 @@ if(scalar(keys(%ivslist)) > 0){
   
   my $filesize = -s "$FONT_DIR/$fontname.ttf";
   my $padding = (4 - $filesize % 4) % 4;
-  $dummy .= `head -c $padding /dev/zero >> $FONT_DIR/$fontname.ttf`;
+  if($padding > 0){
+    $dummy .= `head -c $padding /dev/zero >> 
+$FONT_DIR/$fontname.ttf`;
+  }
 } else {
   my $dummy = `$FONTFORGE -script $FONT_DIR/$fontname.scr 2>> $WORK_DIR/stderr.txt`;
   $dummy .= `$TTX -t cmap -t OS\\/2 -t post $FONT_DIR/$fontname.raw.ttf 2>> $WORK_DIR/stderr.txt`;
@@ -216,7 +219,9 @@ if(scalar(keys(%ivslist)) > 0){
   
   my $filesize = -s "$FONT_DIR/$fontname.ttf";
   my $padding = (4 - $filesize % 4) % 4;
-  $dummy .= `head -c $padding /dev/zero >> $FONT_DIR/$fontname.ttf`;
+  if($padding > 0){
+    $dummy .= `head -c $padding /dev/zero >> $FONT_DIR/$fontname.ttf`;
+  }
 }
 
 unlink("$FONT_DIR/$fontname.raw.ttf");
