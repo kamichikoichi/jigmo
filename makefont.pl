@@ -206,8 +206,7 @@ if(scalar(keys(%ivslist)) > 0){
   my $filesize = -s "$FONT_DIR/$fontname.ttf";
   my $padding = (4 - $filesize % 4) % 4;
   if($padding > 0){
-    $dummy .= `head -c $padding /dev/zero >> 
-$FONT_DIR/$fontname.ttf`;
+    $dummy .= `head -c $padding /dev/zero >> $FONT_DIR/$fontname.ttf`;
   }
 } else {
   my $dummy = `$FONTFORGE -script $FONT_DIR/$fontname.scr 2>> $WORK_DIR/stderr.txt`;
